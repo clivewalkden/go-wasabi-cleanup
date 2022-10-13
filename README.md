@@ -1,6 +1,6 @@
 # Cleanup old files on WasabiSys
 
-This executable takes a configuration file and cleans up old files outside the given timeframes.
+This executable automatically cleans up old files outside the given compliance timeframes.
 
 ## Run
 `go run cmd/main.go`

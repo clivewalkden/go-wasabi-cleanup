@@ -78,6 +78,15 @@ func main() {
 					})
 					objectList.Size += obj.Size
 					//fmt.Printf("Object Name: %s Object Modified Date: %s\n", *obj.Key, obj.LastModified)
+					fmt.Printf("- Deleting object %s\n", *obj.Key)
+					_, err = client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+						Bucket: object.Name,
+						Key:    obj.Key,
+					})
+
+					if err != nil {
+						panic("Couldn't delete items")
+					}
 				} else {
 					safeList.Items = append(safeList.Items, types.ObjectIdentifier{
 						Key: obj.Key,
@@ -88,28 +97,10 @@ func main() {
 		}
 
 		// Delete the objects that match
-		fmt.Printf("Deleting %d objects totallying %s from the %s Bucket\n", len(objectList.Items), ByteCountSI(objectList.Size), *object.Name)
+		fmt.Printf("Deleted %d objects totallying %s from the %s Bucket\n", len(objectList.Items), ByteCountSI(objectList.Size), *object.Name)
 		fmt.Printf("Remaining %d objects totallying %s in the %s Bucket\n", len(safeList.Items), ByteCountSI(safeList.Size), *object.Name)
 		//bar := progressbar.Default(int64(len(objectList.Items)))
 
-		//for x := 0; x < len(objectList.Items); x++ {
-		del := &types.Delete{
-			Objects: objectList.Items,
-			Quiet:   true,
-		}
-		//fmt.Println(del)
-		input := s3.DeleteObjectsInput{
-			Bucket: object.Name,
-			Delete: del,
-		}
-		//fmt.Println(input)
-		output, err := client.DeleteObjects(context.Background(), &input)
-		if err != nil {
-			panic(err)
-		}
-		//bar.Add(1)
-		//}
-		fmt.Println(output)
 	}
 }
 
