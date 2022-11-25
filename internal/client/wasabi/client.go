@@ -6,18 +6,19 @@ import (
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"log"
+	wasabiConfig "wasabiCleanup/internal/config"
 )
 
-func Client() *s3.Client {
+func Client(appConfig wasabiConfig.S3Connection) *s3.Client {
 	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
 		return aws.Endpoint{
 			PartitionID:   "aws",
-			URL:           "https://s3.eu-central-1.wasabisys.com",
-			SigningRegion: "eu-central-1",
+			URL:           appConfig.Url,
+			SigningRegion: appConfig.Region,
 		}, nil
 	})
 
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile("wasabi"), config.WithEndpointResolverWithOptions(customResolver))
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(appConfig.Profile), config.WithEndpointResolverWithOptions(customResolver))
 	if err != nil {
 		log.Fatal(err)
 	}
