@@ -1,10 +1,11 @@
 package config
 
 import (
-	"fmt"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"log"
 	"os"
+	"wasabiCleanup/internal/utils"
 )
 
 type Config struct {
@@ -19,27 +20,34 @@ type S3Connection struct {
 }
 
 func InitConfig() Config {
-	fmt.Fprintln(os.Stdout, "Reading config file")
-	// Find home directory.
-	home, err := os.UserHomeDir()
-	if err != nil {
-		log.Fatal(err)
-	}
-	viper.SetConfigFile("wasabi-cleanup.yml")
+	pflag.BoolP("verbose", "v", false, "Output additional debug messages")
+	pflag.Parse()
+	viper.BindPFlags(pflag.CommandLine)
+
+	log.Println("Reading config file.")
+	viper.SetConfigFile("config")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(utils.UserHome() + "/.wasabiCleanup/")
 	viper.AddConfigPath(".")
-	viper.AddConfigPath(home)
-	viper.AutomaticEnv()
+	//viper.Debug()
 
 	// If a config file is found, read it in.
-	err = viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("fatal error config file: %w", err))
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			log.Println("Config file not found. Please make sure you have a config file in $HOME/.wasabiCleanup/ or ")
+			os.Exit(1)
+		} else {
+			// Config file was found but another error was produced
+		}
 	}
 
 	config := Config{}
 	viper.Unmarshal(&config)
 
-	//fmt.Println(config)
+	if viper.GetBool("verbose") {
+		log.Println("Loaded config from: ", viper.ConfigFileUsed())
+		log.Println("Config: ", viper.AllSettings())
+	}
 
 	return config
 }
