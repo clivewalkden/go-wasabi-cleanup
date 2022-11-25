@@ -21,6 +21,8 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+
+## [1.1.0] - 2022-11-25
 ### Added
 - Config file support instead of hard coding the options
 - Verbose flag option to help debug what is happening
