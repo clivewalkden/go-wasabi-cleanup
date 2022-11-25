@@ -1,5 +1,9 @@
 # Cleanup old files on WasabiSys
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/clivewalkden/go-wasabi-cleanup/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/clivewalkden/go-wasabi-cleanup/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/clivewalkden/go-wasabi-cleanup/badges/build.png?b=main)](https://scrutinizer-ci.com/g/clivewalkden/go-wasabi-cleanup/build-status/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/clivewalkden/go-wasabi-cleanup/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/clivewalkden/go-wasabi-cleanup/tree/main)
+
 This executable automatically cleans up old files outside the given compliance timeframes.
 
 ## Run
