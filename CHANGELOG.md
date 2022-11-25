@@ -21,6 +21,11 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+### Changed
+- Opened this upto BSD-3-Clause License
+- Added version output to the make file for easier archiving of the compiled binaries
+- Began setting up CI and Code Analysis
+
 
 ## [1.1.0] - 2022-11-25
 ### Added
