@@ -21,6 +21,15 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+### Added
+- Config file support instead of hard coding the options
+- Verbose flag option to help debug what is happening
+- Debugging messages through the code to help see what is happening
+
+### Changed
+- Split out some files for easier maintenance
+- Result output easier to understand and read
+
 
 ## [1.0.0] - 2022-10-13
 ### Added
