@@ -5,9 +5,14 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
+	"github.com/spf13/viper"
 	"log"
+	"os"
 	"time"
 	"wasabiCleanup/internal/client/wasabi"
+	wasabiConfig "wasabiCleanup/internal/config"
+	"wasabiCleanup/internal/reporting"
+	"wasabiCleanup/internal/utils"
 )
 
 type S3Object struct {
@@ -21,14 +26,16 @@ type S3Objects struct {
 	Size  int64
 }
 
-var retention map[string]int
-
 func main() {
-	retention = make(map[string]int)
-	retention["sozo-db-backups"] = 90
-	retention["sozo-log-backups"] = 180
+	appConfig := wasabiConfig.InitConfig()
+
+	if (appConfig.Connection == wasabiConfig.S3Connection{}) {
+		log.Fatal("Sorry configuration is incomplete and can't connect to the S3 instance.")
+		os.Exit(1)
+	}
 
 	client := wasabi.Client()
+	report := reporting.Report{}
 
 	buckets, err := client.ListBuckets(context.TODO(), &s3.ListBucketsInput{})
 	if err != nil {
@@ -37,7 +44,14 @@ func main() {
 
 	log.Println("Working...")
 	for _, object := range buckets.Buckets {
-		if retention[*object.Name] == 0 {
+		if viper.GetBool("verbose") {
+			fmt.Printf("Checking Bucket %s\n", *object.Name)
+		}
+
+		if appConfig.Buckets[*object.Name] == 0 {
+			if viper.GetBool("verbose") {
+				fmt.Printf("\t- Bucket not in config, skipping\n")
+			}
 			continue
 		}
 
@@ -56,7 +70,10 @@ func main() {
 		})
 
 		// The date we need to delete items prior to
-		comparisonDate := time.Now().AddDate(0, 0, -retention[*object.Name]-1)
+		comparisonDate := time.Now().AddDate(0, 0, -appConfig.Buckets[*object.Name]-1)
+		if viper.GetBool("verbose") {
+			fmt.Printf("\t- Checking files date is before %s\n", comparisonDate)
+		}
 
 		// Iterate through the S3 object pages, printing each object returned.
 		var i int
@@ -67,7 +84,11 @@ func main() {
 			// you could add timeouts or deadlines.
 			page, err := p.NextPage(context.TODO())
 			if err != nil {
-				log.Fatalf("failed to get page %v, %v", i, err)
+				log.Fatalf("\t\tfailed to get page %v, %v", i, err)
+			}
+
+			if viper.GetBool("verbose") {
+				fmt.Printf("\t\t- Next page (%d)\n", i)
 			}
 
 			// Log the objects found
@@ -77,8 +98,9 @@ func main() {
 						Key: obj.Key,
 					})
 					objectList.Size += obj.Size
-					//fmt.Printf("Object Name: %s Object Modified Date: %s\n", *obj.Key, obj.LastModified)
-					fmt.Printf("- Deleting object %s\n", *obj.Key)
+					if viper.GetBool("verbose") {
+						fmt.Printf("\t\t\t- Deleting object %s\n", *obj.Key)
+					}
 					_, err = client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
 						Bucket: object.Name,
 						Key:    obj.Key,
@@ -96,24 +118,16 @@ func main() {
 			}
 		}
 
-		// Delete the objects that match
-		fmt.Printf("Deleted %d objects totallying %s from the %s Bucket\n", len(objectList.Items), ByteCountSI(objectList.Size), *object.Name)
-		fmt.Printf("Remaining %d objects totallying %s in the %s Bucket\n", len(safeList.Items), ByteCountSI(safeList.Size), *object.Name)
-		//bar := progressbar.Default(int64(len(objectList.Items)))
+		result := reporting.Result{
+			Name:        *object.Name,
+			Kept:        len(safeList.Items),
+			KeptSize:    utils.ByteCountSI(safeList.Size),
+			Deleted:     len(objectList.Items),
+			DeletedSize: utils.ByteCountSI(objectList.Size),
+		}
 
+		report.Result = append(report.Result, result)
 	}
-}
 
-func ByteCountSI(b int64) string {
-	const unit = 1000
-	if b < unit {
-		return fmt.Sprintf("%d B", b)
-	}
-	div, exp := int64(unit), 0
-	for n := b / unit; n >= unit; n /= unit {
-		div *= unit
-		exp++
-	}
-	return fmt.Sprintf("%.1f %cB",
-		float64(b)/float64(div), "kMGTPE"[exp])
+	reporting.Output(report)
 }

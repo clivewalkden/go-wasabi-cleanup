@@ -1,0 +1,8 @@
+buckets:
+  bucket-name: 90
+  bucket-name-2: 180
+  bucket-name-3: 365
+connection:
+  url: 'https://s3.us-central-1.wasabisys.com'
+  region: us-central-1
+  profile: wasabi
