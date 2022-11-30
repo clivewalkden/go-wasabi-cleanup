@@ -7,11 +7,15 @@
 This executable automatically cleans up old files outside the given compliance timeframes.
 
 ## Run
-`go run cmd/main.go`
+`go run cmd/main.go clean`
 
-To run with additional debugging output run with the `-v` flag
+To run with additional debugging output run with the `--version` flag
 
-`go run cmd/main.go -v`
+`go run cmd/main.go clean --verbose`
+
+If you want to check without actually deleting any files you can pass the `--dryrun` flag
+
+`go run cmd/main.go clean --dryrun`
 
 
 ## Config file
@@ -29,14 +33,12 @@ connection:
   url: 'https://s3.us-central-1.wasabisys.com'
   region: us-central-1
   profile: wasabi
-verbose: false
 ```
 1. `buckets` are the names of the buckets you want to delete files from and the number of days back from today you want kept in the bucket.
 2. `connection` the connection information pointing to the server with the files housed
    1. `url` the server access url
    2. `region` the region the server is located
    3. `profile` the AWS config and credentials profile used to connect
-3. `verbose` whether to output debugging information 
 
 ## Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/clivewalkden/go-wasabi-cleanup/tags) or [CHANGELOG.md](./CHANGELOG.md).
