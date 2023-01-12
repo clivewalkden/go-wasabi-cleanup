@@ -7,15 +7,15 @@
 This executable automatically cleans up old files outside the given compliance timeframes.
 
 ## Run
-`go run cmd/main.go clean`
+`go run main.go clean`
 
-To run with additional debugging output run with the `--version` flag
+To run with additional debugging output run with the `--verbose` flag
 
-`go run cmd/main.go clean --verbose`
+`go run main.go clean --verbose`
 
 If you want to check without actually deleting any files you can pass the `--dryrun` flag
 
-`go run cmd/main.go clean --dryrun`
+`go run main.go clean --dryrun`
 
 
 ## Config file
