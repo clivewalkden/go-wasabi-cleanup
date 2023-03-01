@@ -21,6 +21,9 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 * [Security] in case of vulnerabilities.
 
 ## [Unreleased]
+### Changed
+- Updated to work with Go 1.19
+
 
 ## [1.2.0] - 2023-02-01
 ### Added
