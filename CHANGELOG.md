@@ -22,6 +22,16 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-03-01
+### Added
+- Updated to use Go 1.19 for future compatibility
+
+### Changed
+- Viper updated from v1.14.0 to v1.15.0
+- Faith Color updated from v1.13.0 to v1.14.1
+- Rodaine Table updated from v1.0.1 to v1.1.0
+
+
 ## [1.2.0] - 2023-02-01
 ### Added
 - Integrated Cobra to flesh out the cli options

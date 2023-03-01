@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := build
 
-GO_BIN=${HOME}/go/go1.16.15/bin/go
+GO_BIN=${HOME}/go/go1.19.1/bin/go
 EXECUTABLE=wasabi-cleanup
-VERSION=v1.2.0
+VERSION=v1.3.0
 
 fmt:
 	${GO_BIN} fmt ./...

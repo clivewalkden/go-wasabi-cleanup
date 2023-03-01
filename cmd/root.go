@@ -40,7 +40,7 @@ var rootCmd = &cobra.Command{
 	Short: "A tool to cleanup Wasabi bucket files that are out of compliance retention",
 	Long: `wasabiCleanup is a CLI library that allows you to cleanup files in your
 Wasabi buckets that are out of the compliance retention date.`,
-	Version: "1.1.0",
+	Version: "1.3.0",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

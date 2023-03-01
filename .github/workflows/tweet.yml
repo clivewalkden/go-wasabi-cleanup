@@ -12,13 +12,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: lazy-actions/tweet-action@main
-        with:data: |
-          {
-            "title": "Release of wasabiCleanup v${{ github.event.release.tag_name }} is now out 🎉🎉🎉",
-            "url": "${{ github.event.release.html_url }}"
-          }
-        template_filename: .github/assets/template.ejs
-        oauth_consumer_key: ${{ secrets.OAUTH_CONSUMER_KEY }}
-        oauth_consumer_secret: ${{ secrets.OAUTH_CONSUMER_SECRET }}
-        oauth_token: ${{ secrets.OAUTH_TOKEN }}
-        oauth_token_secret: ${{ secrets.OAUTH_TOKEN_SECRET }}
+        with:
+          data: |
+            {
+              "title": "Release of wasabiCleanup v${{ github.event.release.tag_name }} is now out 🎉🎉🎉",
+              "url": "${{ github.event.release.html_url }}"
+            }
+          template_filename: .github/assets/template.ejs
+          oauth_consumer_key: ${{ secrets.OAUTH_CONSUMER_KEY }}
+          oauth_consumer_secret: ${{ secrets.OAUTH_CONSUMER_SECRET }}
+          oauth_token: ${{ secrets.OAUTH_TOKEN }}
+          oauth_token_secret: ${{ secrets.OAUTH_TOKEN_SECRET }}
