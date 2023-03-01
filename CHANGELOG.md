@@ -12,6 +12,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 * PATCH version when you make backwards-compatible bug fixes.
 
 ##### Types of changes
+
 * [Added] for new features.
 * [Changed] for changes in existing functionality.
 * [Deprecated] for soon-to-be removed features.
@@ -21,12 +22,17 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [1.2.0] - 2023-02-01
+### Added
+- Integrated Cobra to flesh out the cli options
+
 ### Changed
 - Opened this upto MIT License
 - Added version output to the make file for easier archiving of the compiled binaries
 - Began setting up CI and Code Analysis
-- Integrated Cobra to flesh out the cli options
-
+- AWS SDK updated from v1.16.15 to v1.17.5
+- AWS SDK Config updated from v1.17.6 to v1.18.15
+- AWS SDK Services updated from v1.27.10 to v1.30.5
 
 ## [1.1.0] - 2022-11-25
 ### Added
@@ -37,7 +43,6 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 ### Changed
 - Split out some files for easier maintenance
 - Result output easier to understand and read
-
 
 ## [1.0.0] - 2022-10-13
 ### Added
