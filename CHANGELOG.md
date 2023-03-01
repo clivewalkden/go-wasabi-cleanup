@@ -21,8 +21,13 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 * [Security] in case of vulnerabilities.
 
 ## [Unreleased]
+### Added
+- Updated to use Go 1.19 for future compatibility
+
 ### Changed
-- Updated to work with Go 1.19
+- Viper updated from v1.14.0 to v1.15.0
+- Faith Color updated from v1.13.0 to v1.14.1
+- Rodaine Table updated from v1.0.1 to v1.1.0
 
 
 ## [1.2.0] - 2023-02-01
