@@ -1,11 +1,34 @@
+/*
+ * Copyright (c) 2023 Clive Walkden <clivewalkden@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package config
 
 import (
-	"github.com/spf13/pflag"
+	"fmt"
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"log"
 	"os"
-	"wasabiCleanup/internal/utils"
 )
 
 type Config struct {
@@ -19,35 +42,39 @@ type S3Connection struct {
 	Profile string `yaml:"profile"`
 }
 
-func InitConfig() Config {
-	pflag.BoolP("verbose", "v", false, "Output additional debug messages")
-	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+var cfgFile string
 
-	log.Println("Reading config file.")
-	viper.SetConfigFile("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(utils.UserHome() + "/.wasabiCleanup/")
-	viper.AddConfigPath(".")
-	//viper.Debug()
+func InitConfig() {
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Find home directory.
+		home, err := os.UserHomeDir()
+		cobra.CheckErr(err)
 
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Println("Config file not found. Please make sure you have a config file in $HOME/.wasabiCleanup/ or ")
-			os.Exit(1)
-		} else {
-			// Config file was found but another error was produced
-		}
+		viper.AddConfigPath(home + "/.wasabiCleanup/")
+		viper.AddConfigPath(".")
+		viper.SetConfigFile("config")
+		viper.SetConfigType("yaml")
 	}
 
-	config := Config{}
-	viper.Unmarshal(&config)
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	}
 
 	if viper.GetBool("verbose") {
 		log.Println("Loaded config from: ", viper.ConfigFileUsed())
 		log.Println("Config: ", viper.AllSettings())
 	}
+}
+
+func AppConfig() Config {
+	config := Config{}
+	viper.Unmarshal(&config)
 
 	return config
 }
