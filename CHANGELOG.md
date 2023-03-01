@@ -22,7 +22,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 ## [Unreleased]
 
 ### Changed
-- Opened this upto BSD-3-Clause License
+- Opened this upto MIT License
 - Added version output to the make file for easier archiving of the compiled binaries
 - Began setting up CI and Code Analysis
 - Integrated Cobra to flesh out the cli options
