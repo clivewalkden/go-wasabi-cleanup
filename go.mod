@@ -10,6 +10,6 @@ require (
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/rodaine/table v1.0.1
-	github.com/spf13/pflag v1.0.5
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.14.0
 )

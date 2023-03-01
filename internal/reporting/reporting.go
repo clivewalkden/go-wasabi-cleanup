@@ -18,6 +18,7 @@ type Result struct {
 
 type Report struct {
 	Result []Result
+	DryRun bool
 }
 
 func Output(report Report) {
@@ -28,7 +29,11 @@ func Output(report Report) {
 	columnFmt := color.New(color.FgYellow).SprintfFunc()
 
 	heading := color.New(color.FgBlue, color.Bold).PrintlnFunc()
-	heading("Results:")
+	if report.DryRun {
+		heading("Potential Results: (DryRun Mode)")
+	} else {
+		heading("Results:")
+	}
 	fmt.Println("")
 
 	tbl := table.New("Name", "Deleted Files", "Deleted Size", "Deleted (%)", "Remaining Files", "Remaining Size")

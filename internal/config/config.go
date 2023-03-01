@@ -1,11 +1,11 @@
 package config
 
 import (
-	"github.com/spf13/pflag"
+	"fmt"
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"log"
 	"os"
-	"wasabiCleanup/internal/utils"
 )
 
 type Config struct {
@@ -19,35 +19,39 @@ type S3Connection struct {
 	Profile string `yaml:"profile"`
 }
 
-func InitConfig() Config {
-	pflag.BoolP("verbose", "v", false, "Output additional debug messages")
-	pflag.Parse()
-	viper.BindPFlags(pflag.CommandLine)
+var cfgFile string
 
-	log.Println("Reading config file.")
-	viper.SetConfigFile("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(utils.UserHome() + "/.wasabiCleanup/")
-	viper.AddConfigPath(".")
-	//viper.Debug()
+func InitConfig() {
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Find home directory.
+		home, err := os.UserHomeDir()
+		cobra.CheckErr(err)
 
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Println("Config file not found. Please make sure you have a config file in $HOME/.wasabiCleanup/ or ")
-			os.Exit(1)
-		} else {
-			// Config file was found but another error was produced
-		}
+		viper.AddConfigPath(home + "/.wasabiCleanup/")
+		viper.AddConfigPath(".")
+		viper.SetConfigFile("config")
+		viper.SetConfigType("yaml")
 	}
 
-	config := Config{}
-	viper.Unmarshal(&config)
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	}
 
 	if viper.GetBool("verbose") {
 		log.Println("Loaded config from: ", viper.ConfigFileUsed())
 		log.Println("Config: ", viper.AllSettings())
 	}
+}
+
+func AppConfig() Config {
+	config := Config{}
+	viper.Unmarshal(&config)
 
 	return config
 }
