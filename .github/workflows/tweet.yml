@@ -9,17 +9,15 @@ jobs:
     name: Tweet
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: lazy-actions/tweet-action@main
+      - uses: snow-actions/tweet@v1.4.0
         with:
-          data: |
-            {
-              "title": "Release of wasabiCleanup v${{ github.event.release.tag_name }} is now out 🎉🎉🎉",
-              "url": "${{ github.event.release.html_url }}"
-            }
-          template_filename: .github/assets/template.ejs
-          oauth_consumer_key: ${{ secrets.OAUTH_CONSUMER_KEY }}
-          oauth_consumer_secret: ${{ secrets.OAUTH_CONSUMER_SECRET }}
-          oauth_token: ${{ secrets.OAUTH_TOKEN }}
-          oauth_token_secret: ${{ secrets.OAUTH_TOKEN_SECRET }}
+          status: |
+            Release of wasabiCleanup ${{ github.event.release.tag_name }} is now out 🎉🎉🎉
+            ${{ github.event.release.html_url }}
+            
+            #wasabisys #wasabi_cloud #compliancetool
+        env:
+          CONSUMER_API_KEY: ${{ secrets.OAUTH_CONSUMER_KEY }}
+          CONSUMER_API_SECRET_KEY: ${{ secrets.OAUTH_CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.OAUTH_TOKEN_SECRET }}
