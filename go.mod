@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/aws/aws-sdk-go-v2 v1.17.7
 	github.com/aws/aws-sdk-go-v2/config v1.18.19
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.0
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.1
 	github.com/fatih/color v1.15.0
 	github.com/rodaine/table v1.1.0
 	github.com/spf13/cobra v1.6.1
