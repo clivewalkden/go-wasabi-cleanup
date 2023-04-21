@@ -45,7 +45,7 @@ type Report struct {
 }
 
 func Output(report Report) {
-	if viper.GetBool("verbose") == false {
+	if !viper.GetBool("verbose") {
 		fmt.Print("\033[H\033[2J") //clear screen
 	}
 	headerFmt := color.New(color.FgGreen, color.Underline).SprintfFunc()
