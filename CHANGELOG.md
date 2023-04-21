@@ -22,6 +22,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [1.4.0] - 2023-04-21
 ### Changed
 - Cobra updated from v1.6.1 to v1.7.0
 - Faith Color updated from v1.14.1 to v1.15.0
