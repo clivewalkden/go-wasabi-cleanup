@@ -22,6 +22,16 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+### Changed
+- Cobra updated from v1.6.1 to v1.7.0
+- Faith Color updated from v1.14.1 to v1.15.0
+- AWS SDK updated from v1.17.5 to v1.17.8
+- AWS SDK Config updated from v1.18.15 to v1.18.21 
+- AWS SDK Services updated from v1.30.5 to v1.32.0
+- Updated make linting method
+- Tweet workflow updated to newer method
+
+
 ## [1.3.0] - 2023-03-01
 ### Added
 - Updated to use Go 1.19 for future compatibility

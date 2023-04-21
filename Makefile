@@ -2,7 +2,7 @@
 
 GO_BIN=${GOROOT}/bin/go
 EXECUTABLE=wasabi-cleanup
-VERSION=v1.3.0
+VERSION=v1.3.1-beta
 
 GO_MAJOR_VERSION = $(shell $(GO_BIN) version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1)
 GO_MINOR_VERSION = $(shell $(GO_BIN) version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f2)
