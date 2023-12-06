@@ -26,6 +26,8 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 - AWS SDK updated from v1.17.8 to v1.23.5
 - AWS SDK Config updated from v1.18.21 to v1.25.6
 - AWS SDK Services updated from v1.32.0 to v1.47.2
+- Fatih Color updated from v1.15.0 to v1.16.0
+- Viper updated from v1.15.0 to v1.17.0
 
 ### Fixed
 - Resolved breaking change to S3 client
@@ -34,7 +36,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 ## [1.3.1] - 2023-04-21
 ### Changed
 - Cobra updated from v1.6.1 to v1.7.0
-- Faith Color updated from v1.14.1 to v1.15.0
+- Fatih Color updated from v1.14.1 to v1.15.0
 - AWS SDK updated from v1.17.5 to v1.17.8
 - AWS SDK Config updated from v1.18.15 to v1.18.21 
 - AWS SDK Services updated from v1.30.5 to v1.32.0
@@ -48,7 +50,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ### Changed
 - Viper updated from v1.14.0 to v1.15.0
-- Faith Color updated from v1.13.0 to v1.14.1
+- Fatih Color updated from v1.13.0 to v1.14.1
 - Rodaine Table updated from v1.0.1 to v1.1.0
 
 
