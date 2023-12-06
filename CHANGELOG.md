@@ -22,6 +22,7 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+## [1.3.2] - 2023-12-06
 ### Changed
 - AWS SDK updated from v1.17.8 to v1.23.5
 - AWS SDK Config updated from v1.18.21 to v1.25.11
