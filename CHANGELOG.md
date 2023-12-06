@@ -24,10 +24,11 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ### Changed
 - AWS SDK updated from v1.17.8 to v1.23.5
-- AWS SDK Config updated from v1.18.21 to v1.25.6
+- AWS SDK Config updated from v1.18.21 to v1.25.11
 - AWS SDK Services updated from v1.32.0 to v1.47.2
 - Fatih Color updated from v1.15.0 to v1.16.0
 - Viper updated from v1.15.0 to v1.17.0
+- Cobra updated from v1.7.0 to v1.8.0
 
 ### Fixed
 - Resolved breaking change to S3 client
