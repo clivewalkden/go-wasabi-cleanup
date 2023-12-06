@@ -26,6 +26,7 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/spf13/viper"
@@ -135,7 +136,7 @@ func clean(cmd *cobra.Command) {
 					objectList.Items = append(objectList.Items, types.ObjectIdentifier{
 						Key: obj.Key,
 					})
-					objectList.Size += obj.Size
+					objectList.Size += aws.ToInt64(obj.Size)
 
 					if dryRun {
 						if verbose {
@@ -160,7 +161,7 @@ func clean(cmd *cobra.Command) {
 					safeList.Items = append(safeList.Items, types.ObjectIdentifier{
 						Key: obj.Key,
 					})
-					safeList.Size += obj.Size
+					safeList.Size += aws.ToInt64(obj.Size)
 				}
 			}
 		}

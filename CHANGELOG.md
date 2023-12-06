@@ -22,6 +22,15 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 ## [Unreleased]
 
+### Changed
+- AWS SDK updated from v1.17.8 to v1.23.5
+- AWS SDK Config updated from v1.18.21 to v1.25.6
+- AWS SDK Services updated from v1.32.0 to v1.47.2
+
+### Fixed
+- Resolved breaking change to S3 client
+
+
 ## [1.3.1] - 2023-04-21
 ### Changed
 - Cobra updated from v1.6.1 to v1.7.0
