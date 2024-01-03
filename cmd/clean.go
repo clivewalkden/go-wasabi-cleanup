@@ -155,13 +155,13 @@ func DeleteOldObjects(bucket types.Bucket, client S3Client, comparisonDate time.
 
 				if dryRun {
 					if verbose {
-						fmt.Printf("\t\t\t- Deleting object %s\n", *obj.Key)
+						fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
 					} else {
 						fmt.Printf("\t- Deleting object %s\n", *obj.Key)
 					}
 				} else {
 					if verbose {
-						fmt.Printf("\t\t\t- Deleting object %s\n", *obj.Key)
+						fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
 					}
 					_, err = client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
 						Bucket: bucket.Name,
