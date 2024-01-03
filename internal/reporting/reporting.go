@@ -63,6 +63,10 @@ func Output(report Report) {
 	tbl.WithHeaderFormatter(headerFmt).WithFirstColumnFormatter(columnFmt).WithPadding(5)
 
 	for _, element := range report.Result {
+		// Skip empty Structs
+		if element.Name == "" {
+			continue
+		}
 		tbl.AddRow(element.Name, element.Deleted, element.DeletedSize, deletedPerc(element), element.Kept, element.KeptSize)
 	}
 	tbl.Print()
