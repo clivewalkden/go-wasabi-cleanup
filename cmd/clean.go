@@ -131,53 +131,70 @@ func ProcessBucket(bucket types.Bucket, client S3Client, dryRun bool, verbose bo
 	return result, nil
 }
 
+// GetObjects retrieves objects from the bucket.
+func GetObjects(bucket types.Bucket, client S3Client) ([]types.Object, error) {
+	params := &s3.ListObjectsV2Input{Bucket: bucket.Name}
+	p := s3.NewListObjectsV2Paginator(client, params)
+
+	var objects []types.Object
+	for p.HasMorePages() {
+		page, err := p.NextPage(context.TODO())
+		if err != nil {
+			return nil, err
+		}
+		objects = append(objects, page.Contents...)
+	}
+
+	return objects, nil
+}
+
+// DeleteObject deletes an object from the bucket.
+func DeleteObject(bucket types.Bucket, client S3Client, object types.Object) error {
+	_, err := client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+		Bucket: bucket.Name,
+		Key:    object.Key,
+	})
+
+	return err
+}
+
 // DeleteOldObjects deletes objects in a bucket that are older than the comparison date.
 func DeleteOldObjects(bucket types.Bucket, client S3Client, comparisonDate time.Time, dryRun bool, verbose bool) (S3Objects, S3Objects, error) {
 	objectList := S3Objects{}
 	safeList := S3Objects{}
 
-	params := &s3.ListObjectsV2Input{Bucket: bucket.Name}
-	p := s3.NewListObjectsV2Paginator(client, params)
+	objects, err := GetObjects(bucket, client)
+	if err != nil {
+		return S3Objects{}, S3Objects{}, err
+	}
 
-	// Loop through the objects and delete any that are older than the comparison date
-	for p.HasMorePages() {
-		page, err := p.NextPage(context.TODO())
-		if err != nil {
-			return S3Objects{}, S3Objects{}, err
-		}
+	for _, obj := range objects {
+		if obj.LastModified.Before(comparisonDate) {
+			objectList.Items = append(objectList.Items, types.ObjectIdentifier{
+				Key: obj.Key,
+			})
+			objectList.Size += aws.ToInt64(obj.Size)
 
-		for _, obj := range page.Contents {
-			if obj.LastModified.Before(comparisonDate) {
-				objectList.Items = append(objectList.Items, types.ObjectIdentifier{
-					Key: obj.Key,
-				})
-				objectList.Size += aws.ToInt64(obj.Size)
-
-				if dryRun {
-					if verbose {
-						fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
-					} else {
-						fmt.Printf("\t- Deleting object %s\n", *obj.Key)
-					}
+			if dryRun {
+				if verbose {
+					fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
 				} else {
-					if verbose {
-						fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
-					}
-					_, err = client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
-						Bucket: bucket.Name,
-						Key:    obj.Key,
-					})
-
-					if err != nil {
-						return S3Objects{}, S3Objects{}, err
-					}
+					fmt.Printf("\t- Deleting object %s\n", *obj.Key)
 				}
 			} else {
-				safeList.Items = append(safeList.Items, types.ObjectIdentifier{
-					Key: obj.Key,
-				})
-				safeList.Size += aws.ToInt64(obj.Size)
+				if verbose {
+					fmt.Printf("\t\t- Deleting object %s\n", *obj.Key)
+				}
+				err = DeleteObject(bucket, client, obj)
+				if err != nil {
+					return S3Objects{}, S3Objects{}, err
+				}
 			}
+		} else {
+			safeList.Items = append(safeList.Items, types.ObjectIdentifier{
+				Key: obj.Key,
+			})
+			safeList.Size += aws.ToInt64(obj.Size)
 		}
 	}
 
