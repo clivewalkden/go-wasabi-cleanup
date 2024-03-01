@@ -21,6 +21,9 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 * [Security] in case of vulnerabilities.
 
 ## [Unreleased]
+### Changed
+- Updated `--dryrun` to `--dry-run`
+
 
 ## [1.3.2] - 2023-12-06
 ### Changed

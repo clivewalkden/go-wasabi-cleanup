@@ -75,7 +75,7 @@ type S3Objects struct {
 
 // init initializes the clean command and its flags.
 func init() {
-	cleanCmd.Flags().BoolVarP(&dryRun, "dryrun", "n", false, "Show what will be deleted but don't delete it")
+	cleanCmd.Flags().BoolVarP(&dryRun, "dry-run", "n", false, "Show what will be deleted but don't delete it")
 }
 
 // GetBuckets is a function that retrieves a list of all buckets from the provided S3 client.
@@ -209,7 +209,7 @@ func CreateReport(results []reporting.Result) reporting.Report {
 
 // clean is the main function for the clean command. It retrieves the list of buckets, processes each bucket, and outputs a report.
 func clean(cmd *cobra.Command) {
-	dryRun, _ := cmd.Flags().GetBool("dryrun")
+	dryRun, _ := cmd.Flags().GetBool("dry-run")
 	verbose, _ := cmd.Flags().GetBool("verbose")
 
 	client := wasabi.Client()
