@@ -23,6 +23,13 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 ## [Unreleased]
 ### Changed
 - Updated `--dryrun` to `--dry-run`
+- Refactored the cleaning process to be more easily testable
+- AWS SDK updated from v1.23.5 to v1.25.2
+- AWS SDK Config updated from v1.25.11 to v1.27.4
+- AWS SDK Services updated from v1.47.2 to v1.51.1
+- Rodaine Table updated from v1.1.0 to v1.1.1
+- Viper updated from v1.17.0 to v1.18.2
+- Refactor to compensate for AWS SDK updates
 
 
 ## [1.3.2] - 2023-12-06
