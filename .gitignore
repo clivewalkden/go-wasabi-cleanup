@@ -1,6 +1,7 @@
 /bin/
 config
 /.idea/
+/dist/
 
 ### Example user template
 
