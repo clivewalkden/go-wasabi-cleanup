@@ -24,6 +24,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 	"wasabiCleanup/internal/config"
 
@@ -34,13 +35,16 @@ var cfgFile string
 var Verbose bool
 var Version bool
 
+func SetVersionInfo(version, commit, date string) {
+	rootCmd.Version = fmt.Sprintf("%s (Built on %s from Git SHA %s)", version, date, commit)
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "wasabiCleanup",
 	Short: "A tool to cleanup Wasabi bucket files that are out of compliance retention",
 	Long: `wasabiCleanup is a CLI library that allows you to cleanup files in your
 Wasabi buckets that are out of the compliance retention date.`,
-	Version: "1.3.2",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
