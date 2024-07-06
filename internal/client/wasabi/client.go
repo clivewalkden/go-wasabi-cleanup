@@ -33,15 +33,15 @@ import (
 )
 
 func Client() *s3.Client {
-	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-		return aws.Endpoint{
+	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) { //nolint:all
+		return aws.Endpoint{ //nolint:all
 			PartitionID:   "aws",
 			URL:           viper.GetString("connection.url"),
 			SigningRegion: viper.GetString("connection.region"),
 		}, nil
 	})
 
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(viper.GetString("connection.profile")), config.WithEndpointResolverWithOptions(customResolver))
+	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithSharedConfigProfile(viper.GetString("connection.profile")), config.WithEndpointResolverWithOptions(customResolver)) //nolint:all
 	if err != nil {
 		log.Fatal(err)
 	}
