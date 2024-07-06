@@ -1,4 +1,4 @@
-module wasabiCleanup
+module wasabi-cleanup
 
 go 1.22
 
