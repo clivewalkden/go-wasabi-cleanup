@@ -21,15 +21,21 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 * [Security] in case of vulnerabilities.
 
 ## [Unreleased]
+### Added
+- Added GoReleaser to the publish project binaries
+
 ### Changed
 - Updated `--dryrun` to `--dry-run`
 - Refactored the cleaning process to be more easily testable
-- AWS SDK updated from v1.23.5 to v1.26.1
-- AWS SDK Config updated from v1.25.11 to v1.27.13
-- AWS SDK Services updated from v1.47.2 to v1.53.2
+- AWS SDK updated from v1.23.5 to v1.30.1
+- AWS SDK Config updated from v1.25.11 to v1.27.24
+- AWS SDK Services updated from v1.47.2 to v1.57.1
 - Rodaine Table updated from v1.1.0 to v1.2.0
-- Viper updated from v1.17.0 to v1.18.2
+- Viper updated from v1.17.0 to v1.19.0 
+- Cobra updated from v1.8.0 to v1.8.1
+- Fatih Color updated from v1.16.0 to v1.17.0
 - Refactor to compensate for AWS SDK updates
+- Binary name changed to wasabi-cleanup
 
 
 ## [1.3.2] - 2023-12-06
