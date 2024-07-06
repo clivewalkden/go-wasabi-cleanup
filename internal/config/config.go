@@ -74,7 +74,10 @@ func InitConfig() {
 
 func AppConfig() Config {
 	config := Config{}
-	viper.Unmarshal(&config)
+	err := viper.Unmarshal(&config)
+	if err != nil {
+		return Config{}
+	}
 
 	return config
 }
