@@ -32,10 +32,10 @@ import (
 	"github.com/spf13/viper"
 	"log"
 	"time"
-	"wasabiCleanup/internal/client/wasabi"
-	"wasabiCleanup/internal/config"
-	"wasabiCleanup/internal/reporting"
-	"wasabiCleanup/internal/utils"
+	"wasabi-cleanup/internal/client/wasabi"
+	"wasabi-cleanup/internal/config"
+	"wasabi-cleanup/internal/reporting"
+	"wasabi-cleanup/internal/utils"
 
 	"github.com/spf13/cobra"
 )

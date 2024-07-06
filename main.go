@@ -23,7 +23,7 @@
 
 package main
 
-import "wasabiCleanup/cmd"
+import "wasabi-cleanup/cmd"
 
 var (
 	version = "dev"

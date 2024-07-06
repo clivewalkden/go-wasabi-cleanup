@@ -26,7 +26,7 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"wasabiCleanup/internal/config"
+	"wasabi-cleanup/internal/config"
 
 	"github.com/spf13/cobra"
 )
@@ -41,9 +41,9 @@ func SetVersionInfo(version, commit, date string) {
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "wasabiCleanup",
+	Use:   "wasabi-cleanup",
 	Short: "A tool to cleanup Wasabi bucket files that are out of compliance retention",
-	Long: `wasabiCleanup is a CLI library that allows you to cleanup files in your
+	Long: `wasabi-cleanup is a CLI library that allows you to cleanup files in your
 Wasabi buckets that are out of the compliance retention date.`,
 }
 
@@ -59,7 +59,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.wasabiCleanup/config)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.wasabi-cleanup/config)")
 	rootCmd.PersistentFlags().BoolVarP(&Version, "version", "V", false, "Software Version")
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
 
