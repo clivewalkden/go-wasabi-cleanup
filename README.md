@@ -6,6 +6,21 @@
 
 This executable automatically cleans up old files outside the given compliance timeframes.
 
+## Installation
+
+### Pre-built binaries
+Pre-built binaries are available on the [releases page](https://github.com/clivewalkden/go-wasabi-cleanup/releases/latest).
+
+Simply download the binary for your platform and run it.
+
+### Homebrew
+
+Install with Homebrew on macOS (or Linux with Homebrew installed):
+```shell
+brew tap clivewalkden/taps
+brew install wasabi-cleanup
+```
+
 ## Run
 
 `go run main.go clean`
