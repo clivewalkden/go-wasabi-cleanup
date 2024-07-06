@@ -14,9 +14,9 @@ To run with additional debugging output run with the `--verbose` flag
 
 `go run main.go clean --verbose`
 
-If you want to check without actually deleting any files you can pass the `--dryrun` flag
+If you want to check without actually deleting any files you can pass the `--dry-run` flag
 
-`go run main.go clean --dryrun`
+`go run main.go clean --dry-run`
 
 ## Config file
 

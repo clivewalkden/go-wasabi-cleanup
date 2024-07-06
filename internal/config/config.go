@@ -53,7 +53,7 @@ func InitConfig() {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		viper.AddConfigPath(home + "/.wasabiCleanup/")
+		viper.AddConfigPath(home + "/.wasabi-cleanup/")
 		viper.AddConfigPath(".")
 		viper.SetConfigFile("config")
 		viper.SetConfigType("yaml")
@@ -74,7 +74,10 @@ func InitConfig() {
 
 func AppConfig() Config {
 	config := Config{}
-	viper.Unmarshal(&config)
+	err := viper.Unmarshal(&config)
+	if err != nil {
+		return Config{}
+	}
 
 	return config
 }
