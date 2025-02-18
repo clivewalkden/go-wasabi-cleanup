@@ -27,13 +27,13 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 ### Changed
 - Updated `--dryrun` to `--dry-run`
 - Refactored the cleaning process to be more easily testable
-- AWS SDK updated from v1.23.5 to v1.30.1
-- AWS SDK Config updated from v1.25.11 to v1.27.24
-- AWS SDK Services updated from v1.47.2 to v1.57.1
-- Rodaine Table updated from v1.1.0 to v1.2.0
+- AWS SDK updated from v1.23.5 to v1.36.1
+- AWS SDK Config updated from v1.25.11 to v1.29.6
+- AWS SDK Services updated from v1.47.2 to v1.76.1
+- Rodaine Table updated from v1.1.0 to v1.3.0
 - Viper updated from v1.17.0 to v1.19.0 
 - Cobra updated from v1.8.0 to v1.8.1
-- Fatih Color updated from v1.16.0 to v1.17.0
+- Fatih Color updated from v1.16.0 to v1.18.0
 - Refactor to compensate for AWS SDK updates
 - Binary name changed to wasabi-cleanup
 
