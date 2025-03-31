@@ -9,7 +9,7 @@ require (
 	github.com/fatih/color v1.18.0
 	github.com/rodaine/table v1.3.0
 	github.com/spf13/cobra v1.9.1
-	github.com/spf13/viper v1.20.0
+	github.com/spf13/viper v1.20.1
 )
 
 require (
