@@ -37,6 +37,12 @@ builds:
       - goos: linux
         goarch: arm
         goarm: 6
+      - goos: windows
+        goarch: arm
+        goarm: 6
+      - goos: windows
+        goarch: arm
+        goarm: 7
     ldflags: -s -w -X main.version={{.Version}} -X 'main.commit={{ .ShortCommit }}' -X 'main.date={{ .Date }}'
 
 archives:
